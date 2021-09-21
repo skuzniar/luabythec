@@ -1,0 +1,34 @@
+syntax = "proto2";
+package tutorial;
+
+enum Drink {
+  COFFEE = 0;
+  TEA    = 1;
+  WINE   = 2;
+  BEER   = 3;
+}
+
+message Person {
+  optional string   name          = 1;
+  optional string   email         = 2;
+  optional Drink    morning_drink = 3;
+  optional Drink    evening_drink = 4;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME   = 1;
+    WORK   = 2;
+  }
+
+  message PhoneNumber {
+    optional string number  = 1;
+    optional PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phones = 5;
+}
+
+message AddressBook {
+  optional string name   = 1;
+  repeated Person people = 2;
+}
