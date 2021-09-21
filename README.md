@@ -9,7 +9,7 @@ To build the compiler plugin you will need the following libraries.
 - protoc 
 - boost
 
-Lua protobuf binding generator relies on [sol2](https://github.com/ThePhD/sol2) library. To use that library you need afairly recent C++ compiler. See the library web page for details. 
+Lua protobuf binding generator relies on [sol2](https://github.com/ThePhD/sol2) library. To use that library you need a fairly recent C++ compiler. See the library web page for details. 
 
 For the example projects you must have the following programs and libraries.
 
@@ -22,7 +22,7 @@ For the example projects you must have the following programs and libraries.
 ## Installation
 
 1. Install required libraries.
-2. If needed, adjust makefile to ensure the compiler finds necessary headers and libraries.
+2. If needed, adjust Makefile to ensure the compiler finds necessary headers and libraries.
 3. Build and install protobuf compiler plugin. PREFIX argument specifies the location where the plugin binary is installed.
 
    ```sh
@@ -44,7 +44,7 @@ It will display list of source and target files at each step of the build proces
 
 You may need to adjust Makefile to tell the compiler the location of header files and libraries. 
 
-After building the plugin you must copy it into location where protobuf compiler can find it.
+After building the plugin you must copy it into location where protobuf compiler can find it. You can do this manually or use make command with proper PREFIX argument.
 
 ## Usage
 
