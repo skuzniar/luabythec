@@ -1,8 +1,8 @@
 MAKESYS_PROJECT_NAME = simple
 MAKESYS_PROJECT_TYPE = exe
-MAKESYS_PROJECT_ROOT = .
+MAKESYS_PACKAGE_ROOT = /usr/local/opt/vcpkg/libexec/installed/x64-osx
 MAKESYS_MAKESYS_ROOT = ../../makesys
-MAKESYS_BUILD_ROOT   = $(MAKESYS_PROJECT_ROOT)/build
+MAKESYS_BUILD_ROOT   = ./build
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Code generation stage. List of source files.

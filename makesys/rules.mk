@@ -10,10 +10,6 @@ ifeq "$(findstring $(MAKESYS_PROJECT_TYPE),$(MAKESYS_VALID_PROJECT_TYPES))" ""
     MAKESYS_PROJECT_TYPE := $(error Invalid MAKESYS_PROJECT_TYPE='$(MAKESYS_PROJECT_TYPE)' - set to one of '$(MAKESYS_VALID_PROJECT_TYPES)')
 endif
 
-ifndef MAKESYS_PROJECT_ROOT
-    MAKESYS_PROJECT_ROOT := $(error Invalid MAKESYS_PROJECT_ROOT='$(MAKESYS_PROJECT_ROOT)' - set the root of the project tree)
-endif
-
 ifndef MAKESYS_MAKESYS_ROOT
 	MAKESYS_MAKESYS_ROOT := $(dir $(lastword $(MAKEFILE_LIST)))
 endif
@@ -32,12 +28,12 @@ ifndef MAKESYS_OS
 		UNAME_S := $(shell uname -s)
 		ifeq ($(UNAME_S), Linux)
 			MAKESYS_OS := linux
-	    endif
+		endif
 		ifeq ($(UNAME_S), Darwin)
 			MAKESYS_OS := osx
-	    else
-    		MAKESYS_OS := windows
-	    endif
+		else
+    			MAKESYS_OS := windows
+	    	endif
 	endif
 endif
 
@@ -177,7 +173,6 @@ include $(wildcard $(MAKESYS_TOOLS_CPP_DEPGEN_FILES))
 #-----------------------------------------------------------------------------------------------------------------------
 info    : print-MAKESYS_PROJECT_NAME \
           print-MAKESYS_PROJECT_TYPE \
-          print-MAKESYS_PROJECT_ROOT \
           print-MAKESYS_MAKESYS_ROOT \
           print-MAKESYS_BUILD_ROOT   \
           print-MAKESYS_OS           \
@@ -199,7 +194,6 @@ info    : print-MAKESYS_PROJECT_NAME \
 
 debug   : verbose-print-MAKESYS_PROJECT_NAME \
           verbose-print-MAKESYS_PROJECT_TYPE \
-          verbose-print-MAKESYS_PROJECT_ROOT \
           verbose-print-MAKESYS_MAKESYS_ROOT \
           verbose-print-MAKESYS_BUILD_ROOT   \
           verbose-print-MAKESYS_OS           \

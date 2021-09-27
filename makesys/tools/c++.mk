@@ -22,7 +22,9 @@ endif
 #-----------------------------------------------------------------------------------------------------------------------
 MAKESYS_TOOLS_CPP_COMPILE_TOOL    ?= $(CXX)
 MAKESYS_TOOLS_CPP_COMPILE_OPTIONS += -ftemplate-depth-128 -w -pedantic -std=c++17
-MAKESYS_TOOLS_CPP_COMPILE_INCPATH +=
+ifneq ($(MAKESYS_PACKAGE_ROOT),)
+	MAKESYS_TOOLS_CPP_COMPILE_INCPATH += $(MAKESYS_PACKAGE_ROOT)/include
+endif
 
 ifdef DEBUG
     MAKESYS_TOOLS_CPP_COMPILE_OPTIONS += -g -D_DEBUG
@@ -68,7 +70,9 @@ $(MAKESYS_COMPILE_DIR)/%$(MAKESYS_TOOLS_CPP_OBJ_EXT): %.c   $(MAKESYS_COMPILE_DI
 #-----------------------------------------------------------------------------------------------------------------------
 MAKESYS_TOOLS_CPP_EXELINK_TOOL    ?= $(CXX)
 MAKESYS_TOOLS_CPP_EXELINK_OPTIONS +=
-MAKESYS_TOOLS_CPP_EXELINK_LIBPATH +=
+ifneq ($(MAKESYS_PACKAGE_ROOT),)
+	MAKESYS_TOOLS_CPP_EXELINK_LIBPATH += $(MAKESYS_PACKAGE_ROOT)/lib
+endif
 MAKESYS_TOOLS_CPP_EXELINK_LIBS    +=
 
 #-----------------------------------------------------------------------------------------------------------------------

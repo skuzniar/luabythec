@@ -1,8 +1,8 @@
 MAKESYS_PROJECT_NAME = protoc-gen-luabythec
 MAKESYS_PROJECT_TYPE = exe
-MAKESYS_PROJECT_ROOT = .
+MAKESYS_PACKAGE_ROOT = /usr/local/opt/vcpkg/libexec/installed/x64-osx
 MAKESYS_MAKESYS_ROOT = ../makesys
-MAKESYS_BUILD_ROOT   = $(MAKESYS_PROJECT_ROOT)/build
+MAKESYS_BUILD_ROOT   = ./build
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Compilation stage source files. No need to specify if all sources reside in current directory.
