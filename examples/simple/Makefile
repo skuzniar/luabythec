@@ -20,11 +20,6 @@ MAKESYS_TOOLS_PROTOBUF_COMPILE_OUTPUT  := cpp luabythec
 MAKESYS_COMPILE_SOURCES := src/*cpp
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Compilation stage. Add necessary include paths.
-#-----------------------------------------------------------------------------------------------------------------------
-MAKESYS_TOOLS_CPP_COMPILE_INCPATH += /usr/local/include/lua
-
-#-----------------------------------------------------------------------------------------------------------------------
 # Executable linking stage. List of libraries. No need to define if the project does not depend on external libraries.
 #-----------------------------------------------------------------------------------------------------------------------
 MAKESYS_TOOLS_CPP_EXELINK_LIBS := stdc++ protobuf lua
