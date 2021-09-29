@@ -10,7 +10,7 @@ MAKESYS_BUILD_ROOT   = ./build
 MAKESYS_CODEGEN_SOURCES := def/*proto
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Code generation stage. Types of output. No need to define if the output is cpp soiurce and header.
+# Code generation stage. Types of output.
 #-----------------------------------------------------------------------------------------------------------------------
 MAKESYS_TOOLS_PROTOBUF_COMPILE_OUTPUT  := cpp luabythec
 
@@ -20,15 +20,15 @@ MAKESYS_TOOLS_PROTOBUF_COMPILE_OUTPUT  := cpp luabythec
 MAKESYS_COMPILE_SOURCES := src/*cpp
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Executable linking stage. List of libraries. No need to define if the project does not depend on external libraries.
+# Executable linking stage. List of libraries. 
 #-----------------------------------------------------------------------------------------------------------------------
-MAKESYS_TOOLS_CPP_EXELINK_LIBS := stdc++ protobuf lua
+MAKESYS_TOOLS_CPP_EXELINK_LIBS := stdc++ protobuf lua pthread
 
 include $(MAKESYS_MAKESYS_ROOT)/rules.mk
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Add rule to execute the program
 #-----------------------------------------------------------------------------------------------------------------------
-run:
+run: exelink
 	$(firstword $(MAKESYS_EXELINK_TARGETS))
 

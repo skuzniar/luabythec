@@ -150,17 +150,9 @@ $(MAKESYS_INSTALL_TARGETS) : $(MAKESYS_INSTALL_SOURCES)
 install                    : $(MAKESYS_INSTALL_TARGETS)
 
 cleanup : 
-	rm -rf $(MAKESYS_CODEGEN_DIR) \
-           $(MAKESYS_COMPILE_DIR) \
-           $(MAKESYS_EXELINK_DIR) \
-           $(MAKESYS_DLLLINK_DIR) \
-           $(MAKESYS_LIBLINK_DIR) \
-           $(MAKESYS_PACKAGE_DIR)
+	rm -rf $(MAKESYS_CODEGEN_DIR) $(MAKESYS_COMPILE_DIR) $(MAKESYS_EXELINK_DIR) $(MAKESYS_DLLLINK_DIR) $(MAKESYS_LIBLINK_DIR) $(MAKESYS_PACKAGE_DIR)
 
 clean   : cleanup
-
-xxx :
-	echo $(PREFIX)
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Include dependency files if present
