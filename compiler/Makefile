@@ -1,6 +1,6 @@
 MAKESYS_PROJECT_NAME = protoc-gen-luabythec
 MAKESYS_PROJECT_TYPE = exe
-MAKESYS_PACKAGE_ROOT = /usr/local/opt/vcpkg/libexec/installed/x64-osx
+MAKESYS_PACKAGE_ROOT = $(HOME)/opt/vcpkg/installed/x64-osx
 MAKESYS_MAKESYS_ROOT = ../makesys
 MAKESYS_BUILD_ROOT   = ./build
 
