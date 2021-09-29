@@ -3,8 +3,8 @@
 #-----------------------------------------------------------------------------------------------------------------------
 ifeq ($(MAKESYS_TOOLS_PROTOBUF_COMPILE_TOOL),)
 	ifneq ($(MAKESYS_PACKAGE_ROOT),)
-		ifneq ($(wildcard $(MAKESYS_PACKAGE_ROOT)/tools/protobuf/protoc),)
-			MAKESYS_TOOLS_PROTOBUF_COMPILE_TOOL := $(MAKESYS_PACKAGE_ROOT)/tools/protobuf/protoc
+		ifneq ($(wildcard $(MAKESYS_PACKAGE_ROOT)/$(MAKESYS_ARCH)-$(MAKESYS_OS)/tools/protobuf/protoc),)
+			MAKESYS_TOOLS_PROTOBUF_COMPILE_TOOL := $(MAKESYS_PACKAGE_ROOT)/$(MAKESYS_ARCH)-$(MAKESYS_OS)/tools/protobuf/protoc
 		endif
 	endif
 endif

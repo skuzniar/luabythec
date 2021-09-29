@@ -23,7 +23,9 @@ endif
 MAKESYS_TOOLS_CPP_COMPILE_TOOL    ?= $(CXX)
 MAKESYS_TOOLS_CPP_COMPILE_OPTIONS += -ftemplate-depth-128 -w -pedantic -std=c++17
 ifneq ($(MAKESYS_PACKAGE_ROOT),)
-	MAKESYS_TOOLS_CPP_COMPILE_INCPATH += $(MAKESYS_PACKAGE_ROOT)/include
+	ifneq ($(wildcard $(MAKESYS_PACKAGE_ROOT)/$(MAKESYS_ARCH)-$(MAKESYS_OS)/include),)
+		MAKESYS_TOOLS_CPP_COMPILE_INCPATH += $(MAKESYS_PACKAGE_ROOT)/$(MAKESYS_ARCH)-$(MAKESYS_OS)/include
+	endif
 endif
 
 ifdef DEBUG
@@ -71,9 +73,11 @@ $(MAKESYS_COMPILE_DIR)/%$(MAKESYS_TOOLS_CPP_OBJ_EXT): %.c   $(MAKESYS_COMPILE_DI
 MAKESYS_TOOLS_CPP_EXELINK_TOOL    ?= $(CXX)
 MAKESYS_TOOLS_CPP_EXELINK_OPTIONS +=
 ifneq ($(MAKESYS_PACKAGE_ROOT),)
-	MAKESYS_TOOLS_CPP_EXELINK_LIBPATH += $(MAKESYS_PACKAGE_ROOT)/lib
+	ifneq ($(wildcard $(MAKESYS_PACKAGE_ROOT)/$(MAKESYS_ARCH)-$(MAKESYS_OS)/lib),)
+		MAKESYS_TOOLS_CPP_EXELINK_LIBPATH += $(MAKESYS_PACKAGE_ROOT)/$(MAKESYS_ARCH)-$(MAKESYS_OS)/lib
+	endif
 endif
-MAKESYS_TOOLS_CPP_EXELINK_LIBS    +=
+MAKESYS_TOOLS_CPP_EXELINK_LIBS    += dl
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Linking executable sources and targets

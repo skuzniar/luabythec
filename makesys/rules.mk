@@ -24,6 +24,16 @@ endif
 ifndef MAKESYS_OS
 	ifeq ($(OS), Windows_NT)
 		MAKESYS_OS := windows
+
+		ifndef MAKESYS_ARCH
+			ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+				MAKESYS_ARCH := x64
+    	endif
+    	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+				MAKESYS_ARCH := x86
+    	endif
+		endif
+
 	else
 		UNAME_S := $(shell uname -s)
 		ifeq ($(UNAME_S), Linux)
@@ -31,15 +41,32 @@ ifndef MAKESYS_OS
 		endif
 		ifeq ($(UNAME_S), Darwin)
 			MAKESYS_OS := osx
-		else
-    			MAKESYS_OS := windows
-	    	endif
+	 	endif
+
+		ifndef MAKESYS_ARCH
+    	UNAME_P := $(shell uname -m)
+    	ifeq ($(UNAME_P),x86_64)
+				MAKESYS_ARCH := x64
+    	endif
+    	ifneq ($(filter %86,$(UNAME_P)),)
+				MAKESYS_ARCH := x86
+    	endif
+    	ifneq ($(filter arm%,$(UNAME_P)),)
+				MAKESYS_ARCH := arm
+			endif
+		endif
+
 	endif
 endif
 
 MAKESYS_VALID_OSS := linux osx mac
-ifeq "$(findstring $(MAKESYS_OS),$(MAKESYS_VALID_OSS))" ""
+ifeq ($(findstring $(MAKESYS_OS),$(MAKESYS_VALID_OSS)),)
     MAKESYS_OS := $(error Invalid MAKESYS_OS='$(MAKESYS_OS)' - set to one of '$(MAKESYS_VALID_OSS)')
+endif
+
+MAKESYS_VALID_ARCHS := x86 x64 arm
+ifeq ($(findstring $(MAKESYS_ARCH),$(MAKESYS_VALID_ARCHS)),)
+    MAKESYS_ARCH := $(error Invalid MAKESYS_ARCH='$(MAKESYS_ARCH)' - set to one of '$(MAKESYS_VALID_ARCHS)')
 endif
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -168,6 +195,7 @@ info    : print-MAKESYS_PROJECT_NAME \
           print-MAKESYS_MAKESYS_ROOT \
           print-MAKESYS_BUILD_ROOT   \
           print-MAKESYS_OS           \
+          print-MAKESYS_ARCH         \
           print-MAKESYS_DEFAULT_RULE \
           print-MAKESYS_CODEGEN_SOURCES \
           print-MAKESYS_CODEGEN_TARGETS \
@@ -189,6 +217,7 @@ debug   : verbose-print-MAKESYS_PROJECT_NAME \
           verbose-print-MAKESYS_MAKESYS_ROOT \
           verbose-print-MAKESYS_BUILD_ROOT   \
           verbose-print-MAKESYS_OS           \
+          verbose-print-MAKESYS_ARCH         \
           verbose-print-MAKESYS_DEFAULT_RULE \
           verbose-print-MAKESYS_CODEGEN_SOURCES \
           verbose-print-MAKESYS_CODEGEN_TARGETS \

@@ -1,7 +1,6 @@
 MAKESYS_PROJECT_NAME = trivial
 MAKESYS_PROJECT_TYPE = exe
-MAKESYS_PACKAGE_ROOT = $(HOME)/opt/vcpkg/installed/x64-osx
-MAKESYS_MAKESYS_ROOT = ../../makesys
+MAKESYS_PACKAGE_ROOT = $(HOME)/opt/vcpkg/installed
 MAKESYS_BUILD_ROOT   = ./build
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -24,7 +23,10 @@ MAKESYS_COMPILE_SOURCES := src/*cpp
 #-----------------------------------------------------------------------------------------------------------------------
 MAKESYS_TOOLS_CPP_EXELINK_LIBS := stdc++ protobuf lua pthread
 
-include $(MAKESYS_MAKESYS_ROOT)/rules.mk
+#-----------------------------------------------------------------------------------------------------------------------
+# Make system entry point
+#-----------------------------------------------------------------------------------------------------------------------
+include ../../makesys/rules.mk
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Add rule to execute the program
