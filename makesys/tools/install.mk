@@ -37,6 +37,5 @@ endif
 # Installation rules
 #-----------------------------------------------------------------------------------------------------------------------
 $(MAKESYS_TOOLS_INSTALL_EXE_DIR)/%: $(MAKESYS_EXELINK_DIR)/%
-	@mkdir -p $(@D)
 	$(MAKESYS_TOOLS_INSTALL_TOOL) $(MAKESYS_TOOLS_INSTALL_OPTIONS) $< $(MAKESYS_TOOLS_INSTALL_EXE_DIR)
 

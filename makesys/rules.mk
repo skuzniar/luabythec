@@ -91,10 +91,18 @@ ifndef MAKESYS_PACKAGE_DIR
 	MAKESYS_PACKAGE_DIR := $(MAKESYS_BUILD_ROOT)/package
 endif
 ifndef MAKESYS_INSTALL_DIR
-	ifeq ($(PREFIX),)
-		MAKESYS_INSTALL_DIR := $(MAKESYS_BUILD_ROOT)/install
+	ifeq ($(prefix),)
+		ifneq ($(wildcard $(HOME)/.local),)
+			MAKESYS_INSTALL_DIR := $(HOME)/.local
+		else
+			MAKESYS_INSTALL_DIR := /usr/local
+		endif
 	else
-		MAKESYS_INSTALL_DIR := $(PREFIX)
+		ifeq ($(wildcard $(prefix)),)
+			MAKESYS_INSTALL_DIR := $(error Invalid prefix='$(prefix)' - set it to the root of the installation)
+		else
+			MAKESYS_INSTALL_DIR := $(prefix)
+		endif
 	endif
 endif
 

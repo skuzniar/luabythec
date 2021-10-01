@@ -7,7 +7,7 @@ Luabytec (Lua by the C++) is a protobuf compiler plugin that generates Lua bindi
 To build the compiler plugin you will need the following libraries.
 
 - protoc 
-- boost
+- boost (iostreams headers only)
 
 Lua protobuf binding generator relies on [sol2](https://github.com/ThePhD/sol2) library. To use that library you need a fairly recent C++ compiler. See the library web page for details. 
 
@@ -21,20 +21,21 @@ For the example projects you must have the following programs and libraries.
 
 ## Installation
 
-1. Install required libraries.
-2. If needed, adjust Makefile to ensure the compiler finds necessary headers and libraries.
-3. Build and install protobuf compiler plugin. PREFIX argument specifies the location where the plugin binary is installed.
+1. Install required libraries. I recommend using [vcpkg](https://vcpkg.io) C++ package manager. With [vcpkg](https://vcpkg.io) installing dependencies is as simple as running the following command.
+   ```sh
+   vcpkg install protobuf lua sol2 boost-iostreams
+   ```
+2. Adjust Makefile to ensure the compiler finds necessary headers and libraries. When using [vcpkg](https://vcpkg.io) simply change MAKESYS_PACKAGE_ROOT to the root of the package installation directory. 
+3. Build and install protobuf compiler plugin.
 
    ```sh
    cd compiler
-   make
-   make PREFIX=/usr/local install
+   make && make install
    ```
 3. Build and run example projects. Invokes protobuf compiler to generate C++ API and Lua bindings.
    ```sh
    cd examples/[trivial or simple]
-   make
-   make run
+   make && make run
    ```
 If you encounter problems building either the plugin or the examples run
    ```sh
@@ -44,7 +45,10 @@ It will display list of source and target files at each step of the build proces
 
 You may need to adjust Makefile to tell the compiler the location of header files and libraries. 
 
-After building the plugin you must copy it into location where protobuf compiler can find it. You can do this manually or use make command with proper PREFIX argument.
+After building the plugin you must copy it into location where protobuf compiler can find it. You can do this manually or use make command. By default make will try to install it in $(HOME)/.local or /usr/local. You can call make with prefix argument to install the plugin into non-default location.
+   ```sh
+   make prefix=~/my_utils install
+   ```
 
 ## Usage
 
@@ -184,7 +188,7 @@ people {
 
 ## Credits
 
-Lua bindings generator is a simple wrapper on top of [sol2](https://github.com/ThePhD/sol2), an excellent library for binding C++ to Lua. Without that library producing these bindings would be very difficult.
+Lua bindings generator is a simple wrapper on top of [sol2](https://github.com/ThePhD/sol2), an excellent library for binding C++ to Lua.
 
 ## License
 
