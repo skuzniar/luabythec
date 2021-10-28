@@ -1,6 +1,6 @@
 # luabythec
 
-Luabytec (Lua by the C++) is a protobuf compiler plugin that generates Lua bindings for Google protobuf C++ API. Automatically generated bindings for protobuf are useful when one wants to embed Lua into a C++ application that handles protobuf messages. The host application can pass protobuf message to Lua script to perform some action on it. 
+Luabytec (Lua by the C++) is a protobuf compiler plugin that generates Lua bindings for Google protobuf C++ API. Automatically generated bindings for protobuf are useful when one wants to embed Lua in a C++ application that handles protobuf messages. The host application can pass protobuf message to Lua script to perform some action on it. 
 
 ## Requirements
 
@@ -37,6 +37,7 @@ For the example projects you must have the following programs and libraries.
    cd examples/[trivial or simple]
    make && make run
    ```
+## Troubleshooting
 If you encounter problems building either the plugin or the examples run
    ```sh
    make info
@@ -45,7 +46,7 @@ It will display list of source and target files at each step of the build proces
 
 You may need to adjust Makefile to tell the compiler the location of header files and libraries. 
 
-After building the plugin you must copy it into location where protobuf compiler can find it. You can do this manually or use make command. By default make will try to install it in $(HOME)/.local or /usr/local. You can call make with prefix argument to install the plugin into non-default location.
+After building the plugin, you must copy it into a location where protobuf compiler can find it. You can do this manually or use make command. By default make will try to install it in $(HOME)/.local or /usr/local. You can call make with prefix argument to install the plugin into non-default location.
    ```sh
    make prefix=~/my_utils install
    ```
