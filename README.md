@@ -1,6 +1,8 @@
 # luabythec
 
-Luabytec (Lua by the C++) is a protobuf compiler plugin that generates Lua bindings for Google protobuf C++ API. Automatically generated bindings for protobuf are useful when one wants to embed Lua in a C++ application that handles protobuf messages. The host application can pass protobuf message to Lua script to perform some action on it. 
+Luabytec (Lua by the C++) is a protobuf compiler plugin that generates Lua bindings for Google protobuf C++ API. 
+Automatically generated bindings for protobuf are useful when one wants to embed Lua in a C++ application that handles 
+protobuf messages. The host application can pass protobuf message to Lua script to perform some action on it. 
 
 ## Requirements
 
@@ -9,7 +11,8 @@ To build the compiler plugin you will need the following libraries.
 - protoc 
 - boost (iostreams headers only)
 
-Lua protobuf binding generator relies on [sol2](https://github.com/ThePhD/sol2) library. To use that library you need a fairly recent C++ compiler. See the library web page for details. 
+Lua protobuf binding generator relies on [sol2](https://github.com/ThePhD/sol2) library. To use that library you need 
+a fairly recent C++ compiler. See the library web page for details. 
 
 For the example projects you must have the following programs and libraries.
 
@@ -21,11 +24,15 @@ For the example projects you must have the following programs and libraries.
 
 ## Installation
 
-1. Install required libraries. I recommend using [vcpkg](https://vcpkg.io) C++ package manager. With [vcpkg](https://vcpkg.io) installing dependencies is as simple as running the following command.
+1. Install required libraries. I recommend using [vcpkg](https://vcpkg.io) C++ package manager. With 
+   [vcpkg](https://vcpkg.io) installing dependencies is as simple as running the following command.
+
    ```sh
    vcpkg install protobuf lua sol2 boost-iostreams
    ```
-2. Adjust Makefile to ensure the compiler finds necessary headers and libraries. When using [vcpkg](https://vcpkg.io) simply change MAKESYS_PACKAGE_ROOT to the root of the package installation directory. 
+2. Adjust Makefile to ensure the compiler finds necessary headers and libraries. When using [vcpkg](https://vcpkg.io) 
+   simply change MAKESYS_PACKAGE_ROOT to the root of the package installation directory. 
+
 3. Build and install protobuf compiler plugin.
 
    ```sh
@@ -46,7 +53,9 @@ It will display list of source and target files at each step of the build proces
 
 You may need to adjust Makefile to tell the compiler the location of header files and libraries. 
 
-After building the plugin, you must copy it into a location where protobuf compiler can find it. You can do this manually or use make command. By default make will try to install it in $(HOME)/.local or /usr/local. You can call make with prefix argument to install the plugin into non-default location.
+After building the plugin, you must copy it into a location where protobuf compiler can find it. You can do this 
+manually or use make command. By default make will try to install it in $(HOME)/.local or /usr/local. You can call make 
+with prefix argument to install the plugin into non-default location.
    ```sh
    make prefix=~/my_utils install
    ```
@@ -55,7 +64,8 @@ After building the plugin, you must copy it into a location where protobuf compi
 
 The example projects show how to call Lua script from C++ host application and access protobuf messages.
 
-The example below uses Lua script as a normalization filter. The protbuf message contains phone numbers in different format and we pass that message through Lua script to normalize them.
+The example below uses Lua script as a normalization filter. The protbuf message contains phone numbers in different 
+format and we pass that message through Lua script to normalize them.
 
 We use protobuf definition below to generate both C++ API and Lua bindings.
 
@@ -123,6 +133,7 @@ message AddressBook {
 ```
 
 2. Run Lua script on the original message
+
 ```cpp
    //--- Initilize Lua environment
    sol::state lua;
@@ -151,7 +162,9 @@ message AddressBook {
              << address_book.DebugString() << std::endl;
 ```
 
-Running the program will produce the following result. Note that after applying Lua script the phone numbers have the same format.
+Running the program will produce the following result. Note that after applying Lua script the phone numbers have the 
+same format.
+
 ```txt
 ---------------------------------------
 ----- Before executing Lua script -----
@@ -189,7 +202,8 @@ people {
 
 ## Credits
 
-Lua bindings generator is a simple wrapper on top of [sol2](https://github.com/ThePhD/sol2), an excellent library for binding C++ to Lua.
+Lua bindings generator is a simple wrapper on top of [sol2](https://github.com/ThePhD/sol2), an excellent library for 
+binding C++ to Lua.
 
 ## License
 
