@@ -7,33 +7,31 @@
 
 #include "generator.hpp"
 #include "file.hpp"
-#include "utils.hpp"
 #include "ostream.hpp"
+#include "utils.hpp"
 
-#include <memory>
 #include <fstream>
+#include <memory>
 
 #include <boost/iostreams/stream.hpp>
 
 namespace luabythec
 {
 
-bool Generator::Generate(const FileDescriptor* file,
-                         const std::string& parameter,
-                         GeneratorContext* context,
-                         std::string* error) const
+bool
+Generator::Generate (const FileDescriptor *file, const std::string &parameter, GeneratorContext *context,
+                     std::string *error) const
 {
-    std::string ofile = utils::StripProto(file->name()) + "." + utils::Package() + ".hpp";
+    std::string ofile = utils::StripProto (file->name ()) + "." + utils::Package () + ".hpp";
 
-    std::unique_ptr<google::protobuf::io::ZeroCopyOutputStream> s(context->Open(ofile));
-    if (s)
-    {
-        google::protobuf::io::Printer p(s.get(), '$');
+    std::unique_ptr<google::protobuf::io::ZeroCopyOutputStream> s (context->Open (ofile));
+    if (s) {
+        google::protobuf::io::Printer p (s.get (), '$');
 
         // Turn zero copy stream / printer nonsense into std::ostream
-        boost::iostreams::stream<utils::zcsink>  ofs(p);
+        boost::iostreams::stream<utils::zcsink> ofs (p);
 
-        return FileGenerator(file, ofile, *error).Generate(ofs);
+        return FileGenerator (file, ofile, *error).Generate (ofs);
     }
 
     *error = "Unable to open " + ofile + " for writing.";
@@ -41,4 +39,3 @@ bool Generator::Generate(const FileDescriptor* file,
 }
 
 }
-

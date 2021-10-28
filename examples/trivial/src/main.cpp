@@ -5,42 +5,43 @@
 
 #include <sol/sol.hpp>
 
-int main(int argc, char* argv[])
+int
+main (int argc, char *argv[])
 {
     //--- Create protobuf message
     tutorial::AddressBook address_book;
 
-    auto person = address_book.add_people();
+    auto person = address_book.add_people ();
 
-    person->set_name("Mary Moe");
-    person->set_email("mary.moe@gmail.com");
+    person->set_name ("Mary Moe");
+    person->set_email ("mary.moe@gmail.com");
 
-    auto phone = person->add_phones();
+    auto phone = person->add_phones ();
 
-    phone->set_number("111.222.3333");
-    phone->set_type(tutorial::Person::WORK);
+    phone->set_number ("111.222.3333");
+    phone->set_type (tutorial::Person::WORK);
 
-    phone = person->add_phones();
+    phone = person->add_phones ();
 
-    phone->set_number("222-333 - 4444");
-    phone->set_type(tutorial::Person::HOME);
+    phone->set_number ("222-333 - 4444");
+    phone->set_type (tutorial::Person::HOME);
 
     std::cout << "---------------------------------------\n"
               << "----- Before executing Lua script -----\n"
               << "---------------------------------------\n"
-              << address_book.DebugString() << std::endl;
+              << address_book.DebugString () << std::endl;
 
     //--- Initilize Lua environment
     sol::state lua;
-    lua.open_libraries(sol::lib::base, sol::lib::string);
+    lua.open_libraries (sol::lib::base, sol::lib::string);
 
     //--- Bind C++ types into Lua
-    luabythec::bind<tutorial::AddressBook>(lua);
+    luabythec::bind<tutorial::AddressBook> (lua);
 
     //--- Demonstrate changing protobuf message using Lua
-    lua["address_book"] = std::ref(address_book);
+    lua["address_book"] = std::ref (address_book);
 
-    lua.script(
+    lua.script (
         R"""(
            -- Normalize phone numbers
 	       for _, p in ipairs(address_book:people()) do
@@ -54,7 +55,7 @@ int main(int argc, char* argv[])
     std::cout << "---------------------------------------\n"
               << "----- After executing Lua script ------\n"
               << "---------------------------------------\n"
-              << address_book.DebugString() << std::endl;
+              << address_book.DebugString () << std::endl;
 
     return 0;
 }

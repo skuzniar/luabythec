@@ -8,9 +8,9 @@
 #include "generator.hpp"
 #include <google/protobuf/compiler/plugin.h>
 
-int main(int argc, char* argv[]) 
+int
+main (int argc, char *argv[])
 {
-  luabythec::Generator generator;
-  return google::protobuf::compiler::PluginMain(argc, argv, &generator);
+    luabythec::Generator generator;
+    return google::protobuf::compiler::PluginMain (argc, argv, &generator);
 }
-

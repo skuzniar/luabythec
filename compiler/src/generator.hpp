@@ -8,22 +8,20 @@
 #ifndef generator_hpp
 #define generator_hpp
 
-#include <string>
 #include <google/protobuf/compiler/code_generator.h>
+#include <string>
 
 namespace luabythec
 {
+using google::protobuf::FileDescriptor;
 using google::protobuf::compiler::CodeGenerator;
 using google::protobuf::compiler::GeneratorContext;
-using google::protobuf::FileDescriptor;
 
 class Generator : public CodeGenerator
 {
-    public:
-    bool Generate(const FileDescriptor* file,
-                  const std::string& parameter,
-                  GeneratorContext* context,
-                  std::string* error) const override;
+  public:
+    bool Generate (const FileDescriptor *file, const std::string &parameter, GeneratorContext *context,
+                   std::string *error) const override;
 };
 
 }

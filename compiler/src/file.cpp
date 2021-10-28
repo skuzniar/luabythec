@@ -6,8 +6,8 @@
 //
 
 #include "file.hpp"
-#include "message.hpp"
 #include "enum.hpp"
+#include "message.hpp"
 #include "utils.hpp"
 
 namespace luabythec
@@ -15,185 +15,170 @@ namespace luabythec
 
 using utils::endi;
 
-FileGenerator::FileGenerator(const FileDescriptor* descriptor, const std::string& fname, std::string& error)
-    : m_descriptor(descriptor), m_fname(fname), m_error(error)
+FileGenerator::FileGenerator (const FileDescriptor *descriptor, const std::string &fname, std::string &error)
+    : m_descriptor (descriptor), m_fname (fname), m_error (error)
 {
 }
 
-
-bool FileGenerator::Generate(std::ostream& os)
+bool
+FileGenerator::Generate (std::ostream &os)
 {
-    generate_header_guard_open(os);
-    generate_namespace_open(os);
-    
-    generate_bind_declaration(os);
-    
-    for (const auto d : enums(m_descriptor))
-    {
-        EnumGenerator(d, m_error).Generate(os);
-    }
-    
-    for (const auto d : messages(m_descriptor))
-    {
-        MessageGenerator(d, m_error).Generate(os);
+    generate_header_guard_open (os);
+    generate_namespace_open (os);
+
+    generate_bind_declaration (os);
+
+    for (const auto d : enums (m_descriptor)) {
+        EnumGenerator (d, m_error).Generate (os);
     }
 
-    generate_namespace_close(os);
-    generate_header_guard_close(os);
-    
+    for (const auto d : messages (m_descriptor)) {
+        MessageGenerator (d, m_error).Generate (os);
+    }
+
+    generate_namespace_close (os);
+    generate_header_guard_close (os);
+
     return true;
 }
 
-std::vector<const Descriptor*> FileGenerator::messages(const FileDescriptor* d)
+std::vector<const Descriptor *>
+FileGenerator::messages (const FileDescriptor *d)
 {
-    std::vector<const Descriptor*> m;
-    messages(d, m);
+    std::vector<const Descriptor *> m;
+    messages (d, m);
 
-    auto same = [](const auto& l, const auto& r) { return l->name() == r->name();};
-    
-    utils::Group(m.begin(), m.end(), same);
-    
-    m.erase(std::unique(m.begin(), m.end(), same), m.end());
+    auto same = [] (const auto &l, const auto &r) { return l->name () == r->name (); };
+
+    utils::Group (m.begin (), m.end (), same);
+
+    m.erase (std::unique (m.begin (), m.end (), same), m.end ());
 
     return m;
 }
 
-void FileGenerator::messages(const FileDescriptor* d, std::vector<const Descriptor*>& m)
+void
+FileGenerator::messages (const FileDescriptor *d, std::vector<const Descriptor *> &m)
 {
-    for (int i = 0; i < d->message_type_count(); ++i)
-    {
-        messages(d->message_type(i), m);
+    for (int i = 0; i < d->message_type_count (); ++i) {
+        messages (d->message_type (i), m);
     }
 }
 
-void FileGenerator::messages(const Descriptor* d, std::vector<const Descriptor*>& m)
+void
+FileGenerator::messages (const Descriptor *d, std::vector<const Descriptor *> &m)
 {
-    for (int i = 0; i < d->nested_type_count(); ++i)
-    {
-        messages(d->nested_type(i), m);
+    for (int i = 0; i < d->nested_type_count (); ++i) {
+        messages (d->nested_type (i), m);
     }
-    
-    for (int i = 0; i < d->field_count(); i++)
-    {
-        if (auto md = d->field(i)->message_type())
-        {
-            messages(md, m);
+
+    for (int i = 0; i < d->field_count (); i++) {
+        if (auto md = d->field (i)->message_type ()) {
+            messages (md, m);
         }
     }
-    
-    m.push_back(d);
+
+    m.push_back (d);
 }
 
-std::vector<const EnumDescriptor*> FileGenerator::enums(const FileDescriptor* d)
+std::vector<const EnumDescriptor *>
+FileGenerator::enums (const FileDescriptor *d)
 {
-    std::vector<const EnumDescriptor*> e;
-    enums(d, e);
+    std::vector<const EnumDescriptor *> e;
+    enums (d, e);
 
-    auto same = [](const auto& l, const auto& r) { return l->name() == r->name();};
-    
-    utils::Group(e.begin(), e.end(), same);
-    
-    e.erase(std::unique(e.begin(), e.end(), same), e.end());
+    auto same = [] (const auto &l, const auto &r) { return l->name () == r->name (); };
+
+    utils::Group (e.begin (), e.end (), same);
+
+    e.erase (std::unique (e.begin (), e.end (), same), e.end ());
 
     return e;
 }
 
-
-void FileGenerator::enums(const FileDescriptor* d, std::vector<const EnumDescriptor*>& e)
+void
+FileGenerator::enums (const FileDescriptor *d, std::vector<const EnumDescriptor *> &e)
 {
-    for (int i = 0; i < d->message_type_count(); ++i)
-    {
-        enums(d->message_type(i), e);
+    for (int i = 0; i < d->message_type_count (); ++i) {
+        enums (d->message_type (i), e);
     }
-    
-    for (int i = 0; i < d->enum_type_count(); ++i)
-    {
-        e.push_back(d->enum_type(i));
+
+    for (int i = 0; i < d->enum_type_count (); ++i) {
+        e.push_back (d->enum_type (i));
     }
 }
 
-void FileGenerator::enums(const Descriptor* d, std::vector<const EnumDescriptor*>& e)
+void
+FileGenerator::enums (const Descriptor *d, std::vector<const EnumDescriptor *> &e)
 {
-    for (int i = 0; i < d->nested_type_count(); ++i)
-    {
-        enums(d->nested_type(i), e);
+    for (int i = 0; i < d->nested_type_count (); ++i) {
+        enums (d->nested_type (i), e);
     }
-    
-    for (int i = 0; i < d->field_count(); i++)
-    {
-        if (auto md = d->field(i)->message_type())
-        {
-            enums(md, e);
+
+    for (int i = 0; i < d->field_count (); i++) {
+        if (auto md = d->field (i)->message_type ()) {
+            enums (md, e);
         }
     }
-    
-    for (int i = 0; i < d->enum_type_count(); ++i)
-    {
-        e.push_back(d->enum_type(i));
+
+    for (int i = 0; i < d->enum_type_count (); ++i) {
+        e.push_back (d->enum_type (i));
     }
 }
 
-bool FileGenerator::generate_header_guard_open(std::ostream& os)
+bool
+FileGenerator::generate_header_guard_open (std::ostream &os)
 {
     // Generate top of header.
-    os  << "// Generated by the protocol buffer compiler. DO NOT EDIT!" << endi
-        << "// source: " << m_descriptor->name() << endi
-        << endi
-        << "#ifndef " << header_guard() << endi
-        << "#define " << header_guard() << endi
-        << endi
-        << "#include <sol/sol.hpp>" << endi
-        << endi;
-    
+    os << "// Generated by the protocol buffer compiler. DO NOT EDIT!" << endi << "// source: " << m_descriptor->name ()
+       << endi << endi << "#ifndef " << header_guard () << endi << "#define " << header_guard () << endi << endi
+       << "#include <sol/sol.hpp>" << endi << endi;
+
     return true;
 }
 
-bool FileGenerator::generate_header_guard_close(std::ostream& os)
+bool
+FileGenerator::generate_header_guard_close (std::ostream &os)
 {
-    os << "#endif  // " << header_guard() << endi
-       << endi;
+    os << "#endif  // " << header_guard () << endi << endi;
     return true;
 }
 
-
-bool FileGenerator::generate_namespace_open (std::ostream& os)
+bool
+FileGenerator::generate_namespace_open (std::ostream &os)
 {
-    os << "namespace luabythec {" << endi
-       << endi;
+    os << "namespace luabythec {" << endi << endi;
     return true;
 }
 
-bool FileGenerator::generate_namespace_close(std::ostream& os)
+bool
+FileGenerator::generate_namespace_close (std::ostream &os)
 {
-    os << "} // namespace luabythec" << endi
-       << endi;
+    os << "} // namespace luabythec" << endi << endi;
     return true;
 }
 
-std::string FileGenerator::header_guard() const
+std::string
+FileGenerator::header_guard () const
 {
-    return utils::Replace(utils::Replace(m_fname, ".", "_"), "/", "_");
+    return utils::Replace (utils::Replace (m_fname, ".", "_"), "/", "_");
 }
 
-bool FileGenerator::generate_bind_declaration(std::ostream& os)
+bool
+FileGenerator::generate_bind_declaration (std::ostream &os)
 {
-    os << "#ifndef " << bind_declaration_guard() << endi
-       << "#define " << bind_declaration_guard() << endi;
+    os << "#ifndef " << bind_declaration_guard () << endi << "#define " << bind_declaration_guard () << endi;
 
-    os << "//" << std::string(118, '-') << endi
-       << "// Bind declaration" << endi
-       << "//" << std::string(118, '-') << endi
-       << "template <class T>" << endi
-       << "void bind(sol::state& lua);"
-       << endi;
+    os << "//" << std::string (118, '-') << endi << "// Bind declaration" << endi << "//" << std::string (118, '-')
+       << endi << "template <class T>" << endi << "void bind(sol::state& lua);" << endi;
 
-    os << "#endif  // " << bind_declaration_guard()
-       << endi;
-    
+    os << "#endif  // " << bind_declaration_guard () << endi;
+
     return true;
 }
 
-std::string FileGenerator::bind_declaration_guard() const
+std::string
+FileGenerator::bind_declaration_guard () const
 {
     return "luabythec_bind_declaration_defined";
 }

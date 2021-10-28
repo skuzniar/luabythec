@@ -16,42 +16,41 @@
 namespace luabythec
 {
 
-using google::protobuf::FileDescriptor;
-using google::protobuf::FieldDescriptor;
-using google::protobuf::EnumDescriptor;
 using google::protobuf::Descriptor;
+using google::protobuf::EnumDescriptor;
+using google::protobuf::FileDescriptor;
 
-class FileGenerator 
+class FileGenerator
 {
-public:
-    FileGenerator(const FileDescriptor* descriptor, const std::string& fname, std::string& error);
+  public:
+    FileGenerator (const FileDescriptor *descriptor, const std::string &fname, std::string &error);
 
-    bool Generate(std::ostream& os);
+    bool Generate (std::ostream &os);
 
-private:
-    bool generate_header_guard_open (std::ostream& os);
-    bool generate_header_guard_close(std::ostream& os);
+  private:
+    bool generate_header_guard_open (std::ostream &os);
+    bool generate_header_guard_close (std::ostream &os);
 
-    bool generate_namespace_open (std::ostream& os);
-    bool generate_namespace_close(std::ostream& os);
-    
-    std::string header_guard() const;
+    bool generate_namespace_open (std::ostream &os);
+    bool generate_namespace_close (std::ostream &os);
 
-    bool generate_bind_declaration(std::ostream& os);
+    std::string header_guard () const;
 
-    std::string bind_declaration_guard() const;
+    bool generate_bind_declaration (std::ostream &os);
 
-    std::vector<const Descriptor*> messages(const FileDescriptor* d);
-    void                           messages(const FileDescriptor* d, std::vector<const Descriptor*>& m);
-    void                           messages(const Descriptor*     d, std::vector<const Descriptor*>& m);
- 
-    std::vector<const EnumDescriptor*> enums(const FileDescriptor* d);
-    void                               enums(const FileDescriptor* d, std::vector<const EnumDescriptor*>& e);
-    void                               enums(const Descriptor*     d, std::vector<const EnumDescriptor*>& e);
+    std::string bind_declaration_guard () const;
 
-    const FileDescriptor*   m_descriptor;
-    std::string             m_fname;
-    std::string&            m_error;
+    std::vector<const Descriptor *> messages (const FileDescriptor *d);
+    void                            messages (const FileDescriptor *d, std::vector<const Descriptor *> &m);
+    void                            messages (const Descriptor *d, std::vector<const Descriptor *> &m);
+
+    std::vector<const EnumDescriptor *> enums (const FileDescriptor *d);
+    void                                enums (const FileDescriptor *d, std::vector<const EnumDescriptor *> &e);
+    void                                enums (const Descriptor *d, std::vector<const EnumDescriptor *> &e);
+
+    const FileDescriptor *m_descriptor;
+    std::string           m_fname;
+    std::string          &m_error;
 };
 
 }
