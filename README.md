@@ -25,7 +25,7 @@ For the example projects you must have the following programs and libraries.
 ## Installation
 
 1. Install required libraries.
-2. Adjust CMakeLists.txt to ensure the compiler finds necessary headers and libraries.
+2. Adjust cmake files to ensure the compiler finds necessary headers and libraries.
 3. Build protobuf compiler plugin and example programs.
 
    ```sh
