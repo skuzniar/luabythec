@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(protoc-gen-luabythec CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+
 find_package(Protobuf REQUIRED)
 find_package(Boost REQUIRED)
 find_package(absl REQUIRED)
@@ -14,8 +16,6 @@ add_executable(protoc-gen-luabythec
   message.cpp
   utils.cpp
   main.cpp)
-
-target_compile_features(protoc-gen-luabythec PRIVATE cxx_std_17)
 
 target_link_libraries(protoc-gen-luabythec PRIVATE
   protobuf::libprotoc protobuf::libprotobuf absl::log_internal_check_op)

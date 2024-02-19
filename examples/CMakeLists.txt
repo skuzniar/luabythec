@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.20)
 
 project(examples CXX)
 
-find_package(Protobuf CONFIG REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+
+find_package(Protobuf REQUIRED)
+find_package(Lua REQUIRED)
 
 add_library(proto-objects OBJECT addressbook.proto)
 
@@ -22,23 +25,19 @@ protobuf_generate(
 
 add_executable(trivial trivial.cpp)
 
-target_link_directories(trivial PUBLIC /usr/local/lib)
-
-target_link_libraries(trivial PRIVATE proto-objects lua)
+target_link_libraries(trivial PRIVATE proto-objects ${LUA_LIBRARIES})
 
 target_include_directories(trivial PRIVATE
+    ${LUA_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/opt/sol2/include
-    ${CMAKE_SOURCE_DIR}/opt/lua
     ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(simple simple.cpp)
 
-target_link_directories(simple PUBLIC /usr/local/lib)
-
-target_link_libraries(simple PRIVATE proto-objects lua)
+target_link_libraries(simple PRIVATE proto-objects ${LUA_LIBRARIES})
 
 target_include_directories(simple PRIVATE
+    ${LUA_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/opt/sol2/include
-    ${CMAKE_SOURCE_DIR}/opt/lua
     ${CMAKE_CURRENT_BINARY_DIR})
 
