@@ -24,42 +24,14 @@ For the example projects you must have the following programs and libraries.
 
 ## Installation
 
-1. Install required libraries. I recommend using [vcpkg](https://vcpkg.io) C++ package manager. With 
-   [vcpkg](https://vcpkg.io) installing dependencies is as simple as running the following command.
+1. Install required libraries.
+2. Adjust CMakeLists.txt to ensure the compiler finds necessary headers and libraries.
+3. Build protobuf compiler plugin and example programs.
 
    ```sh
-   vcpkg install protobuf lua sol2 boost-iostreams
+   cmake -B build
+   cmake --build build
    ```
-2. Adjust Makefile to ensure the compiler finds necessary headers and libraries. When using [vcpkg](https://vcpkg.io) 
-   simply change MAKESYS_PACKAGE_ROOT to the root of the package installation directory. 
-
-3. Build and install protobuf compiler plugin.
-
-   ```sh
-   cd compiler
-   make && make install
-   ```
-3. Build and run example projects. Invokes protobuf compiler to generate C++ API and Lua bindings.
-   ```sh
-   cd examples/[trivial or simple]
-   make && make run
-   ```
-## Troubleshooting
-If you encounter problems building either the plugin or the examples run
-   ```sh
-   make info
-   ```
-It will display list of source and target files at each step of the build process.
-
-You may need to adjust Makefile to tell the compiler the location of header files and libraries. 
-
-After building the plugin, you must copy it into a location where protobuf compiler can find it. You can do this 
-manually or use make command. By default make will try to install it in $(HOME)/.local or /usr/local. You can call make 
-with prefix argument to install the plugin into non-default location.
-   ```sh
-   make prefix=~/my_utils install
-   ```
-
 ## Usage
 
 The example projects show how to call Lua script from C++ host application and access protobuf messages.

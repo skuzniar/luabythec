@@ -22,7 +22,7 @@ bool
 Generator::Generate (const FileDescriptor *file, const std::string &parameter, GeneratorContext *context,
                      std::string *error) const
 {
-    std::string ofile = utils::StripProto (file->name ()) + "." + utils::Package () + ".hpp";
+    std::string ofile = utils::StripProto (file->name ()) + "." + utils::Package () + ".h";
 
     std::unique_ptr<google::protobuf::io::ZeroCopyOutputStream> s (context->Open (ofile));
     if (s) {
