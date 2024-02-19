@@ -21,9 +21,9 @@ protobuf_generate(
     IMPORT_DIRS "${CMAKE_CURRENT_LIST_DIR}")
 
 protobuf_generate(
-    LANGUAGE luabythec
-    GENERATE_EXTENSIONS .luabythec.pb.h
-    PLUGIN "${CMAKE_CURRENT_BINARY_DIR}/../compiler/protoc-gen-luabythec"
+    LANGUAGE lbc
+    GENERATE_EXTENSIONS .lbc.pb.h
+    PLUGIN "${CMAKE_CURRENT_BINARY_DIR}/../compiler/protoc-gen-lbc"
     TARGET proto-objects
     IMPORT_DIRS "${CMAKE_CURRENT_LIST_DIR}")
 
