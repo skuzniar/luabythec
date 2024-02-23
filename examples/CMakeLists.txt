@@ -22,7 +22,7 @@ protobuf_generate(
 
 protobuf_generate(
     LANGUAGE lbc
-    GENERATE_EXTENSIONS .lbc.pb.h
+    GENERATE_EXTENSIONS .pb.lbc.h
     PLUGIN "${CMAKE_CURRENT_BINARY_DIR}/../compiler/protoc-gen-lbc"
     TARGET proto-objects
     IMPORT_DIRS "${CMAKE_CURRENT_LIST_DIR}")

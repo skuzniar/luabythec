@@ -3,7 +3,7 @@
 #include <sol/sol.hpp>
 
 #include "addressbook.pb.h"
-#include "addressbook.luabythec.h"
+#include "addressbook.pb.lbc.h"
 
 int
 main (int argc, char *argv[])

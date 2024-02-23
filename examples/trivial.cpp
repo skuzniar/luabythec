@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "addressbook.pb.h"
-#include "addressbook.luabythec.h"
+#include "addressbook.pb.lbc.h"
 
 #include <sol/sol.hpp>
 
