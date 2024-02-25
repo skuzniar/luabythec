@@ -5,7 +5,6 @@ project(protoc-gen-lbc CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(Protobuf REQUIRED)
-find_package(Boost REQUIRED)
 find_package(absl REQUIRED)
 
 add_executable(protoc-gen-lbc 

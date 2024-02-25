@@ -7,13 +7,9 @@
 
 #include "generator.hpp"
 #include "file.hpp"
-#include "ostream.hpp"
 #include "utils.hpp"
 
 #include <fstream>
-#include <memory>
-
-#include <boost/iostreams/stream.hpp>
 
 namespace luabythec
 {
@@ -24,13 +20,8 @@ Generator::Generate (const FileDescriptor *file, const std::string &parameter, G
 {
     std::string ofile = utils::StripProto (file->name ()) + ".pb.lbc.h";
 
-    std::unique_ptr<google::protobuf::io::ZeroCopyOutputStream> s (context->Open (ofile));
-    if (s) {
-        google::protobuf::io::Printer p (s.get (), '$');
-
-        // Turn zero copy stream / printer nonsense into std::ostream
-        boost::iostreams::stream<utils::zcsink> ofs (p);
-
+    std::ofstream ofs(ofile.c_str());
+    if (ofs) {
         return FileGenerator (file, ofile, *error).Generate (ofs);
     }
 

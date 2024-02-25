@@ -9,7 +9,6 @@ protobuf messages. The host application can pass protobuf message to Lua script 
 To build the compiler plugin you will need the following libraries.
 
 - protoc 
-- boost (iostreams headers only)
 
 Lua protobuf binding generator relies on [sol2](https://github.com/ThePhD/sol2) library. To use that library you need 
 a fairly recent C++ compiler. See the library web page for details. 
