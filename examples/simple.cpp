@@ -48,7 +48,7 @@ main (int argc, char *argv[])
     }
 
     std::cout << "---------------------------------------\n"
-              << "----- Before executing Lua script -----\n"
+              << "-------- Original address book --------\n"
               << "---------------------------------------\n"
               << address_book.DebugString () << std::endl;
 
@@ -76,8 +76,16 @@ main (int argc, char *argv[])
            phone = person:add_phones()
            phone.number = '666 777 8888'
            phone.type   = tutorial.Person.PhoneType.MOBILE
+           )""");
 
-           -- Normalize phone numbers and drinking habits
+    std::cout << "---------------------------------------\n"
+              << "------- After adding new person -------\n"
+              << "---------------------------------------\n"
+              << address_book.DebugString () << std::endl;
+
+    lua.script (
+        R"""(
+           -- Normalize phone numbers and change drinking habits
 	       for _, p in ipairs(address_book:people()) do
                if p.morning_drink == tutorial.Drink.BEER or p.morning_drink == tutorial.Drink.WINE then 
                    p.morning_drink = tutorial.Drink.TEA
@@ -87,12 +95,34 @@ main (int argc, char *argv[])
 		           ph.number = '(' .. a .. ')' .. ' ' .. b .. '-' .. c
 	           end
 	       end
-
            )""");
 
-    std::cout << "---------------------------------------\n"
-              << "----- After executing Lua script ------\n"
-              << "---------------------------------------\n"
+    std::cout << "---------------------------------------------------------------\n"
+              << "----- After nomalizing phone numbers and drinking habits ------\n"
+              << "---------------------------------------------------------------\n"
+              << address_book.DebugString () << std::endl;
+
+    lua.script (
+        R"""(
+           -- Change email of the last person
+           local person = address_book:people():at(#address_book:people())
+           person.email = 'jane.the.last.poe@gmail.com'
+           )""");
+
+    std::cout << "-----------------------------------------------\n"
+              << "----- After changing last person's email ------\n"
+              << "-----------------------------------------------\n"
+              << address_book.DebugString () << std::endl;
+
+    lua.script (
+        R"""(
+           -- Delete second person - Lua counts from 1
+           address_book:people():erase(2)
+           )""");
+
+    std::cout << "--------------------------------------------\n"
+              << "----- After erasing the second person ------\n"
+              << "--------------------------------------------\n"
               << address_book.DebugString () << std::endl;
 
     return 0;
