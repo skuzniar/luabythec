@@ -16,6 +16,3 @@ find_path(SOL2_INCLUDE_DIR sol/sol.hpp
     PATH_SUFFIXES include
     REQUIRED)
 
-find_package_handle_standard_args(Sol2
-    REQUIRED_VARS SOL2_INCLUDE_DIR)
-
